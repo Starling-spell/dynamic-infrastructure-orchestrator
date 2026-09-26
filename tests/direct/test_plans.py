@@ -51,6 +51,21 @@ def test_safe_batch_advances_once(direct_vm, direct_deploy, direct_alice):
         c.apply_transition("demo", "good")
 
 
+def test_compact_cli_entrypoint(direct_vm, direct_deploy, direct_alice):
+    c = setup(direct_vm, direct_deploy, direct_alice)
+    c.propose_transition_compact("demo", "compact", 0,
+                                 "machine|ACTIVE|STANDBY;cooling|ACTIVE|MAINTENANCE", DEADLINE)
+    vote(direct_vm)
+    c.apply_transition("demo", "compact")
+    assert c.get_plan("demo", "compact")["state"] == "APPLIED"
+
+
+def test_compact_schema_rejects(direct_vm, direct_deploy, direct_alice):
+    c = setup(direct_vm, direct_deploy, direct_alice)
+    with direct_vm.expect_revert("compact step schema"):
+        c.propose_transition_compact("demo", "bad", 0, "machine|ACTIVE", DEADLINE)
+
+
 def test_dependency_cannot_be_disabled_first(direct_vm, direct_deploy, direct_alice):
     c = setup(direct_vm, direct_deploy, direct_alice)
     with direct_vm.expect_revert("active dependency would be interrupted"):

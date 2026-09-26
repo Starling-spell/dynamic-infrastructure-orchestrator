@@ -188,6 +188,20 @@ class DynamicInfrastructureOrchestrator(gl.Contract):
             parent_version, network.root, encode(steps), deadline, "PROPOSED", "")
 
     @gl.public.write
+    def propose_transition_compact(self, network_id: str, plan_id: str, parent_version: int,
+                                   steps_compact: str, deadline: int) -> None:
+        """CLI-safe equivalent: `component|from|to;component|from|to`."""
+        if not 5 <= len(steps_compact) <= 1200:
+            raise gl.vm.UserError("[EXPECTED] bounded compact plan required")
+        steps = []
+        for raw in steps_compact.split(";"):
+            fields = raw.split("|")
+            if len(fields) != 3 or not all(fields):
+                raise gl.vm.UserError("[EXPECTED] compact step schema required")
+            steps.append({"component": fields[0], "from": fields[1], "to": fields[2]})
+        self.propose_transition(network_id, plan_id, parent_version, encode(steps), deadline)
+
+    @gl.public.write
     def apply_transition(self, network_id: str, plan_id: str) -> None:
         network = self._owned(network_id)
         plan_key = item_key(network_id, plan_id)

@@ -53,6 +53,7 @@ expired plan without web/LLM calls.
 - `register_component(network_id, component_id, state, dependency="")`
 - `seal_network(network_id)`
 - `propose_transition(network_id, plan_id, parent_version, steps_json, deadline)`
+- `propose_transition_compact(network_id, plan_id, parent_version, steps_compact, deadline)`
 - `apply_transition(network_id, plan_id)`
 - `get_network`, `get_plan`, `get_record`, `get_snapshot`
 
@@ -93,6 +94,10 @@ but violates the fetched documents and should be semantically REJECTED.
 [{"component":"machine","from":"ACTIVE","to":"STANDBY"},
  {"component":"cooling","from":"ACTIVE","to":"MAINTENANCE"}]
 ```
+
+For CLI clients, use the equivalent compact encoding
+`machine|ACTIVE|STANDBY;cooling|ACTIVE|MAINTENANCE`; the contract canonicalizes it
+before storing and evaluating the plan. This avoids shell/CLI JSON quoting ambiguity.
 
 Two plans against the same parent may coexist; after one applies, the other becomes
 STALE and cannot overwrite the model. A changed evidence body produces INCONCLUSIVE,
