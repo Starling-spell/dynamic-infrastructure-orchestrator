@@ -4,6 +4,9 @@ A GenLayer infrastructure **planning model** with ordered maintenance batches,
 dependency protection, independently fetched specifications/runbooks, and immutable
 versioned snapshots. No certificates, capability consumption, device control, or payments.
 
+StudioNet: [matching deployed contract](https://explorer-studio.genlayer.com/address/0xA0DB832398a6Fbb1cFE7a65de8DA3BFaFDbc588e).
+Finalized live outcomes: APPLIED, REJECTED and STALE. See [LIVE_PROOFS.md](LIVE_PROOFS.md).
+
 ## Problem and consensus boundary
 
 A change can preserve a dependency graph and still violate a documented maintenance
