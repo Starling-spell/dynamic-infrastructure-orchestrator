@@ -1,0 +1,7 @@
+Synthetic infrastructure planning fixture. No physical devices are controlled.
+Maintenance sequence: first set machine to STANDBY; then set cooling to MAINTENANCE.
+Never place the machine directly from ACTIVE into MAINTENANCE. First isolate it into STANDBY in a prior plan.
+Machine isolation procedure: stop production scheduling and drain in-progress work before marking STANDBY.
+Cooling recovery procedure: inspect the cooling circuit, restore circulation, mark STANDBY, then mark ACTIVE after flow checks.
+Machine recovery procedure: verify cooling is ACTIVE, check the machine interlock, complete a dry-run, then resume ACTIVE scheduling.
+These instructions describe allowable model plans, not evidence that any recovery has occurred.

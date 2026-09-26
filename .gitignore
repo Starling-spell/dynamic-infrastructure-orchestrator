@@ -1,0 +1,11 @@
+.env
+.env.*
+*.key
+*.pem
+node_modules/
+__pycache__/
+.pytest_cache/
+.gltest_cache/
+.deps*/
+receipts-local/
+artifacts/

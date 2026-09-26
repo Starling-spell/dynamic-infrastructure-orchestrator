@@ -1,0 +1,9 @@
+Synthetic infrastructure planning fixture. This is not a report of real equipment.
+Network: cooling-demo. Components: cooling and machine.
+The machine depends on cooling. An ACTIVE machine requires ACTIVE cooling.
+The machine may be moved from ACTIVE to STANDBY for maintenance isolation.
+Cooling may move from ACTIVE to MAINTENANCE only after the machine is STANDBY.
+The machine must not move from ACTIVE directly to MAINTENANCE: maintenance requires prior STANDBY isolation.
+An isolated machine may move from STANDBY to MAINTENANCE.
+Cooling in MAINTENANCE may return to STANDBY and then ACTIVE after the recovery procedure.
+A machine in STANDBY may return to ACTIVE only with cooling ACTIVE and after recovery checks.
